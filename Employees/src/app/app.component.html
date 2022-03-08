@@ -1,1 +1,19 @@
-<button class="btn btn-primary"><i class="fa fa-times"></i></button>
+<div class="container" >
+    <table class="table table-bordered mt-4"  >
+        <thead>
+            <tr class="table-active">
+                <th>Name</th>
+                <th>Total Time in Month</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let employee of employees" [ngClass]="(employee.SecondsWorking / 3600000) < 100? 'table-danger': ''">
+                <td>{{employee.EmployeeName? employee.EmployeeName : 'unknown'}}</td>
+                <td >{{employee.SecondsWorking / 3600000 | number:'1.0-0' }} hrs</td>
+                <td><a href="">Edit</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
