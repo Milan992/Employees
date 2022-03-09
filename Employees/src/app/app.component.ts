@@ -54,7 +54,7 @@ export class AppComponent implements OnInit {
 
       // organize data for pie chart
       this.employees.map((a: any) => {
-        this.employeesChartData.labels.push([a.EmployeeName]);
+        this.employeesChartData.labels.push([a.EmployeeName == null? 'unknown' : a.EmployeeName]);
         this.employeesChartData.datasets[0]['data'].push(a.SecondsWorking / sum * 100)
       });
 
