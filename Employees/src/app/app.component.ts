@@ -31,12 +31,15 @@ export class AppComponent implements OnInit {
       // group data by EmployeeName
       this.data.map((d: WorkingDay) => {
         let employee = this.employees.find(e => e.EmployeeName == d.EmployeeName);
-        if (employee == null) {
-          d.SecondsWorking = (Date.parse(d.EndTimeUtc) - Date.parse(d.StarTimeUtc));
-          this.employees.push(d);
-        } else {
-          employee.SecondsWorking = employee.SecondsWorking + (Date.parse(d.EndTimeUtc) - Date.parse(d.StarTimeUtc));
+        if (d.DeletedOn == null) {
+          if (employee == null) {
+            d.SecondsWorking = (Date.parse(d.EndTimeUtc) - Date.parse(d.StarTimeUtc));
+            this.employees.push(d);
+          } else {
+            employee.SecondsWorking = employee.SecondsWorking + (Date.parse(d.EndTimeUtc) - Date.parse(d.StarTimeUtc));
+          }
         }
+
 
         // Order data by the totaltime worked.
         this.employees.sort(function (a, b) {
