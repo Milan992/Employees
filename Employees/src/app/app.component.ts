@@ -43,14 +43,19 @@ export class AppComponent implements OnInit {
           return b.SecondsWorking - a.SecondsWorking;
         });
       })
+
+      // get sum of working hours of all employees
       let sum: number = this.employees.map(a => a.SecondsWorking).reduce(function (a, b) {
         return a + b;
       });
 
+      // organize data for pie chart
       this.employees.map((a: any) => {
         this.employeesChartData.labels.push([a.EmployeeName]);
         this.employeesChartData.datasets[0]['data'].push(a.SecondsWorking / sum * 100)
       });
+
+      // indicate that all data is set
       this.ready = true;
     })
   }
