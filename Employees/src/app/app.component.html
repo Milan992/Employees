@@ -1,5 +1,5 @@
-<div class="container" >
-    <table class="table table-bordered mt-4"  >
+<div class="container">
+    <table class="table table-bordered mt-4">
         <thead>
             <tr class="table-active">
                 <th>Name</th>
@@ -8,12 +8,21 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let employee of employees" [ngClass]="(employee.SecondsWorking / 3600000) < 100? 'table-danger': ''">
+            <tr *ngFor="let employee of employees"
+                [ngClass]="(employee.SecondsWorking / 3600000) < 100? 'table-danger': ''">
                 <td>{{employee.EmployeeName? employee.EmployeeName : 'unknown'}}</td>
-                <td >{{employee.SecondsWorking / 3600000 | number:'1.0-0' }} hrs</td>
+                <td>{{employee.SecondsWorking / 3600000 | number:'1.0-0' }} hrs</td>
                 <td><a href="">Edit</a></td>
             </tr>
         </tbody>
     </table>
 </div>
-
+<div class="container">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <app-pie-chart *ngIf="ready" [data]="employeesChartData"></app-pie-chart>
+        </div>
+        <div class="col-3"></div>
+    </div>
+</div>

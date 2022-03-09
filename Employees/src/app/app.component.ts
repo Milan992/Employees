@@ -11,6 +11,14 @@ export class AppComponent implements OnInit {
 
   data!: WorkingDay[];
   employees: WorkingDay[] = [];
+  employeesChartData: any = {
+    labels: [],
+    datasets: [{
+      data: []
+    }]
+  };
+  ready: boolean = false;
+
 
   constructor(private dataService: DataService) { }
 
@@ -18,6 +26,7 @@ export class AppComponent implements OnInit {
     //get data
     this.dataService.getData().then(result => {
       this.data = result;
+
 
       // group data by EmployeeName
       this.data.map((d: WorkingDay) => {
@@ -34,6 +43,15 @@ export class AppComponent implements OnInit {
           return b.SecondsWorking - a.SecondsWorking;
         });
       })
+      let sum: number = this.employees.map(a => a.SecondsWorking).reduce(function (a, b) {
+        return a + b;
+      });
+
+      this.employees.map((a: any) => {
+        this.employeesChartData.labels.push([a.EmployeeName]);
+        this.employeesChartData.datasets[0]['data'].push(a.SecondsWorking / sum * 100)
+      });
+      this.ready = true;
     })
   }
 }
